@@ -76,6 +76,7 @@ public:
             return *this;
         }
         else if(size_ == 3){
+            
         }
         else if(this->name == 'I'){
                 for(int i = 0; i < this->size_; i++){ 
@@ -103,10 +104,12 @@ public:
   // cpp 파일에서 Tetromino Tetromino::I(...); 와 같이 구현한다
   static Tetromino I, O, T, S, Z, J, L;
   Tetromino Tetromino::I("I", 4, "XXXXOOOOXXXXXXXX");
-  Tetromino Tetromino::I("I", 4, "XXXXOOOOXXXXXXXX");
-  Tetromino Tetromino::I("I", 4, "XXXXOOOOXXXXXXXX");
-  Tetromino Tetromino::I("I", 4, "XXXXOOOOXXXXXXXX");
-  Tetromino Tetromino::I("I", 4, "XXXXOOOOXXXXXXXX");
-  Tetromino Tetromino::I("I", 4, "XXXXOOOOXXXXXXXX");
+  Tetromino Tetromino::O("O", 2, "OOOO");
+  Tetromino Tetromino::T("T", 3, "XOXOOOXXX");
+  Tetromino Tetromino::S("S", 3, "XOOOOXXXX");
+  Tetromino Tetromino::Z("Z", 3, "OOXXOOXXX");
+  Tetromino Tetromino::J("J", 3, "OXXOOOXXX");
+  Tetromino Tetromino::L("L", 3, "XXOOOOXXX");
+
 
 

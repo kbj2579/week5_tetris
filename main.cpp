@@ -11,7 +11,7 @@ int main() {
 
   while (!game.shouldExit()) {
     console::clear();
-
+  
     game.update();
     game.draw();
 
