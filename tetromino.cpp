@@ -1,111 +1,12 @@
+#include "tetromino.h"
+#include <iostream>
 #include <string>
-
 #define SHADOW_STRING "⛶"
 #define BLOCK_STRING "■"
 
-class Tetromino {
-    static const int MAX_SIZE = 4;
-
-    // 디버그용 이름
-    std::string name_;
-
-    // 테트로미노의 모양을 저장하는 배열
-    // shape[x][y]가 true인 경우 x, y 위치에 블록이 있는 것이고 false의 경우 없는
-    // 것이다.
-    bool shape_[MAX_SIZE][MAX_SIZE];
-
-    // 회전되지 않은 원래 테트로미노 객체를 저장하는 포인터
-    Tetromino* original_;
-
-    // 테트로미노의 사이즈
-    int size_;
-
-    bool temp;
-    bool temp2;
-    bool temp3;
-    // 테트로미노의 각 회전할때의 모양
-    // Tetromino T
-    bool T_one[3][3] =
-    {
-        {false, true, false},
-        {false, true, true},
-        {false, true, false}
-    };
-    bool T_two[3][3] =
-    {
-        {false, false, false},
-        {true, true, true},
-        {false, true, false}
-    };
-    bool T_three[3][3] =
-    {
-        {false, false, false},
-        {true, true, true},
-        {false, true, false}
-    };
-
-    // Tetromino S
-    bool S_one[3][3] =
-    {
-        {false, true, false},
-        {false, true, true},
-        {false, false, true}
-    };
-    
-    // Tetromino Z
-    bool Z_one[3][3] =
-    {
-        {false, true, false},
-        {true, true, false},
-        {true, false, false}
-    };
-    
-    // Tetromino J
-    bool J_one[3][3] =
-    {
-        {false, true, true},
-        {false, true, false},
-        {false, true, false}
-    };
-    bool J_two[3][3] =
-    {
-        {false, false, false},
-        {true, true, true},
-        {false, false, true}
-    };
-    bool J_three[3][3] =
-    {
-        {false, true, false},
-        {false, true, false},
-        {true, true, false}
-    };
-
-    // Tetromino L
-    bool L_one[3][3] =
-    {
-        {true, false, false},
-        {true, false, false},
-        {true, true, false}
-    };
-    bool L_two[3][3] =
-    {
-        {false, false, false},
-        {true, true, true},
-        {false, false, true}
-    };
-    bool L_three[3][3] =
-    {
-        {false, true, false},
-        {false, true, false},
-        {true, true, false}
-    };
 
 
 
-
-    
-
-public:
     // 사이즈와 shape 문자열을 통해 생성한다.
     // 문자열은 size * size 길이의 문자열이 주어진다.
 
@@ -125,11 +26,10 @@ public:
     // XXXX
     //
     // Tetromino I("I", 4, "XXXXOOOOXXXXXXXX")
-    Tetromino(std::string name, int size, std::string shape) {
+    Tetromino::Tetromino(std::string name, int size, std::string shape) {
         name_ = name;
         size_ = size;
-
-        int width = -1;
+        width = -1;
         for (int i = 0; i < size * size; i++) {
             if (i % size == 0) width++;
 
@@ -140,44 +40,136 @@ public:
                 shape_[width][i % size] = false;
             }
         }
-        *original_ = Tetromino(name, size, shape);
+        original_ = this;
     }
-
-    // 이름을 반환한다.
-    std::string name() { return name_; }
-
-    // 테트로미노의 사이즈를 반환한다.
-    int size() { return size_; }
-
-    // 회전되지 않은 원래 테트로미노 객체의 포인터를 반환한다.
-    Tetromino* original() { return original_; }
 
     // 시계 방향으로 회전한 모습의 테트로미노 객체를 반환한다.
-    Tetromino rotatedCW() {
-        temp = shape_[0][0];
-        temp2 = shape_[0][2];
-        temp3 = shape_[2][2];
-        shape_[0][2] = shape_[0][0];
-        shape_[2][2] = temp2; 
-        temp3 = shape_[]
-        shape_[0]
-        shape_[2][2] = shape_[2][2];
-        shape_[0][2];
+    Tetromino Tetromino::rotatedCW() {
+        if (size_ == 3) {
+            temp = shape_[0][2];
+            temp2 = shape_[2][2];
+            shape_[0][2] = shape_[0][0];
+            shape_[2][2] = temp;
+            temp = shape_[2][0];
+            shape_[2][0] = temp2;
+            shape_[0][0] = temp;
+
+            //
+            temp = shape_[0][1];
+            temp2 = shape_[1][2];
+            shape_[0][1] = shape_[1][0];
+            shape_[1][2] = temp;
+            temp = shape_[2][1];
+            shape_[2][1] = temp2;
+            shape_[1][0] = temp;
+        }
+        else if (size_ = 4) {
+            temp = shape_[0][1];
+            temp2 = shape_[1][3];
+            shape_[1][3] = temp;
+            temp = shape_[3][2];
+            shape_[3][2] = temp2;
+            temp2 = shape_[2][0];
+            shape_[2][0] = temp;
+            shape_[0][1] = temp2;
+
+            //
+            temp = shape_[0][2];
+            temp2 = shape_[2][3];
+            shape_[2][3] = temp;
+            temp = shape_[3][1];
+            shape_[3][1] = temp2;
+            temp2 = shape_[1][0];
+            shape_[1][0] = temp;
+            shape_[0][2] = temp2;
+
+            //
+            temp = shape_[0][0];
+            temp2 = shape_[0][3];
+            shape_[0][3] = temp;
+            temp = shape_[3][3];
+            shape_[3][3] = temp2;
+            temp2 = shape_[3][0];
+            shape_[3][0] = temp;
+            shape_[0][0] = temp2;
+            //
+            temp = shape_[1][1];
+            temp2 = shape_[1][2];
+            shape_[1][2] = temp;
+            temp = shape_[2][2];
+            shape_[2][2] = temp2;
+            temp2 = shape_[2][1];
+            shape_[2][1] = temp;
+            shape_[1][1] = temp2;
+        }
     }
-
-
-
     // 반시계 방향으로 회전한 모습의 테트로미노 객체를 반환한다.
-    Tetromino rotatedCCW();
+    Tetromino Tetromino::rotatedCCW() {
+            //size가 2인경우 회전모습이 같음.
+
+            //size가 3인경우 반시계방향으로 회전
+            if (size_ == 3) {
+                temp = shape_[0][0];
+                temp2 = shape_[0][2];
+                shape_[0][2] = shape_[2][2];
+                shape_[0][0] = temp2;
+                temp2 = shape_[2][0];
+                shape_[2][0] = temp;
+                shape_[2][2] = temp2;
+
+                //
+                temp = shape_[0][1];
+                temp2 = shape_[1][2];
+                shape_[1][2] = shape_[2][1];
+                shape_[0][1] = temp2;
+                temp2 = shape_[1][0];
+                shape_[1][0] = temp;
+                shape_[2][1] = temp2;
+            }
+            else if (size_ = 4) { //size가 4인경우 반시계방향으로 회전
+                temp = shape_[0][1];
+                temp2 = shape_[1][3];
+                shape_[0][1] = temp2;
+                temp2 = shape_[2][0];
+                shape_[2][0] = temp;
+                temp = shape_[3][2];
+                shape_[3][2] = temp2;
+                shape_[1][3] = temp;
+
+                //
+                temp = shape_[0][2];
+                temp2 = shape_[2][3];
+                shape_[0][2] = temp2;
+                temp2 = shape_[1][0];
+                shape_[1][0] = temp;
+                temp = shape_[3][1];
+                shape_[3][1] = temp2;
+                shape_[2][3] = temp;
+
+                //
+                temp = shape_[0][0];
+                temp2 = shape_[0][3];
+                shape_[0][0] = temp2;
+                temp2 = shape_[3][0];
+                shape_[3][0] = temp;
+                temp = shape_[3][3];
+                shape_[3][3] = temp2;
+                shape_[0][3] = temp;
+
+                //
+                temp = shape_[1][1];
+                temp2 = shape_[1][2];
+                shape_[1][1] = temp2;
+                temp2 = shape_[2][1];
+                shape_[2][1] = temp;
+                temp = shape_[2][2];
+                shape_[2][2] = temp2;
+                shape_[1][2] = temp;
+            }
+            return *this;
+        }
 
     // 화면의 x, y 위치에 s 문자열로  테트로미노를 그린다
-    void drawAt(std::string s, int x, int y);
+    void Tetromino::drawAt(std::string s, int x, int y) {
+    }
 
-    // 테트로미노의 좌상단 기준 x, y 위치에 블록이 있는지 여부를 나타내는 함수
-    bool check(int x, int y) { return shape_[x][y]; }
-
-    // 각 테트로미노 종류에 대한 선언
-    // cpp 파일에서 Tetromino Tetromino::I(...); 와 같이 구현한다
-    static Tetromino I, O, T, S, Z, J, L;
-
-};

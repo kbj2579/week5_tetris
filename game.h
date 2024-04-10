@@ -16,6 +16,16 @@ private:
   // board[x][y]가 true 인 경우 x, y 위치에 고정된 블록이 존재하는 것을 의미한다
   bool board_[BOARD_WIDTH][BOARD_HEIGHT];
 
+  // 1줄을 꽉채워서 없앤 줄의 갯수
+  int count_line;
+  Tetromino curT = Tetromino("I", 4, "XXXXOOOOXXXXXXXX");
+  Tetromino nextT = Tetromino("I", 4, "XXXXOOOOXXXXXXXX");
+  Tetromino holdT = Tetromino("I", 4, "XXXXOOOOXXXXXXXX");
+  int randNum;
+
+  void random();
+
+  void firstRandom()
 public:
   // 게임의 한 프레임을 처리한다.
   void update();
