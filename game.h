@@ -18,9 +18,9 @@ private:
 
   // 1줄을 꽉채워서 없앤 줄의 갯수
   int count_line;
-  Tetromino curT = Tetromino("I", 4, "XXXXOOOOXXXXXXXX");
-  Tetromino nextT = Tetromino("I", 4, "XXXXOOOOXXXXXXXX");  
-  Tetromino holdT = Tetromino("I", 4, "XXXXOOOOXXXXXXXX");
+  Tetromino curT;
+  Tetromino nextT;
+  Tetromino holdT;
   int randNum;
 
   void random();

@@ -101,11 +101,16 @@ bool Game::shouldExit(){
   return true;
 }
 
-Game::Game() { 
+Game::Game() {
+  curT = Tetromino("I", 4, "XXXXOOOOXXXXXXXX");
+  nextT = Tetromino("I", 4, "XXXXOOOOXXXXXXXX");
+  holdT = Tetromino("I", 4, "XXXXOOOOXXXXXXXX");
   for(int i = 0; i < BOARD_HEIGHT; i++){
     for(int j = 0; j < BOARD_WIDTH; j++){
       board_[i][j] = false;
     }
   }
   count_line = 0;   
+  randNum = 0;
 }
+
