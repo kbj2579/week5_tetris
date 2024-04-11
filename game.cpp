@@ -18,7 +18,7 @@ Tetromino Tetromino::J("J", 3, "OXXOOOXXX");
 Tetromino Tetromino::L("L", 3, "XXOOOOXXX");
 
 void Game::random() {
-  randNum = (int)rand % 7 + 1;
+  randNum = (int)rand() % 7 + 1;
   switch(randNum){
     case 1:
       nextT = Tetromino("I", 4, "XXXXOOOOXXXXXXXX");
@@ -45,7 +45,7 @@ void Game::random() {
 }
 
 void Game::firstRandom() {
-  randNum = (int)rand % 7 + 1;
+  randNum = (int)rand() % 7 + 1;
   switch(randNum){
     case 1:
       curT = Tetromino("I", 4, "XXXXOOOOXXXXXXXX");
@@ -84,7 +84,7 @@ void Game::update() {
 }
 // 게임 화면을 그린다.
 void Game::draw(){
-  console::log("sfdfsdfsd");
+  console::log("print test");
   console::drawBox(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
   console::drawBox(28, 0, 31, 5);
 }
@@ -101,13 +101,11 @@ bool Game::shouldExit(){
   return true;
 }
 
-Game::Game() {
+Game::Game() { 
   for(int i = 0; i < BOARD_HEIGHT; i++){
-    for(int j = 0; i < BOARD_WIDTH; j++){
+    for(int j = 0; j < BOARD_WIDTH; j++){
       board_[i][j] = false;
     }
   }
   count_line = 0;   
-  firstRandom();
-  random();
 }
