@@ -23,9 +23,7 @@ private:
   Tetromino holdT;
   int randNum;
 
-  void random();
-
-  void firstRandom();
+ 
 public:
   // 게임의 한 프레임을 처리한다.
   void update();
@@ -35,7 +33,9 @@ public:
 
   // 게임 루프가 종료되어야 하는지 여부를 반환한다.
   bool shouldExit();
+  void random();
 
+  void firstRandom();
   Game();
 };
 #endif
