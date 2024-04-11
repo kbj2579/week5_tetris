@@ -18,12 +18,14 @@ private:
 
   // 1줄을 꽉채워서 없앤 줄의 갯수
   int count_line;
-  Tetromino curT;
-  Tetromino nextT;
-  Tetromino holdT;
+  Tetromino curT = Tetromino("I", 4, "XXXXOOOOXXXXXXXX");
+  Tetromino nextT = Tetromino("I", 4, "XXXXOOOOXXXXXXXX");
+  Tetromino holdT = Tetromino("I", 4, "XXXXOOOOXXXXXXXX");
   int randNum;
 
- 
+  void random();
+
+  void firstRandom();
 public:
   // 게임의 한 프레임을 처리한다.
   void update();
@@ -33,9 +35,7 @@ public:
 
   // 게임 루프가 종료되어야 하는지 여부를 반환한다.
   bool shouldExit();
-  void random();
 
-  void firstRandom();
   Game();
 };
 #endif
