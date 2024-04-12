@@ -1,5 +1,6 @@
 #include "game.h"
 #include "console/console.h"
+#include <iostream>
 #include <cstdlib>
 
 #define BOARD_WIDTH 10
@@ -87,37 +88,55 @@ void Game::downTetro() {
 }
 
 void Game::handleTetroInput() {
-  if(console::key(console::K_Z)){
+  if(console::key(console::K_LEFT)){
     curT.rotatedCW();
   }
-  if(console::key(console::K_X)){
+  if(console::key(console::K_RIGHT)){
     curT.rotatedCCW();
   }
-  if(console::key(console::K_LEFT)){
-    curX--;
+  if(console::key(console::K_Z)){
+    if(!leftWall) {curX--;}
   }
-  if(console::key(console::K_RIGHT)){
-    curX++;
+  if(console::key(console::K_X)){
+    if(!rightWall){curX++;}
   }
+}
+
+void Game::hitWall(){ 
+  for(int i = 0; i < 4; i++){
+    for(int j = 0; j < 4; j++){
+      if(curT.check(j, i) == true && curX == 1){
+        leftWall = true;
+        return;
+      }
+      else if(curT.check(j, i) == true && curX == 8){
+        rightWall = true;
+        return;
+      }
+    }
+  }
+  leftWall = false;
+  rightWall = false;
 }
   // 게임의 한 프레임을 처리한다.
 void Game::update() {
+  //if(cur_floor == true){
+    //curT = nextT;
+   // random();
+  //}
   downTetro();
   drawBoard();
-  downTetro();
+  hitWall();
   handleTetroInput();
+  
 }   
 // 게임 화면을 그린다.
 void Game::draw(){
-  if(cur_floor == true){
-    random();
-    nextT = curT;
-  }
-
   for(int i = 0; i < 4; i++){
     for(int j = 0; j < 4; j++){
       if(curT.check(i, j)){
         curT.drawAt(BLOCK_STRING, curX + i, curY + j);
+        std::cout << curX + i;
       }
     }
   }
@@ -129,7 +148,7 @@ bool Game::shouldExit(){
   if(console::key(console::K_ESC)){
     return true;
   }
-  else if(count_line == 40){
+  if(count_line == 40){
     return true;
   }
   return false;
@@ -143,6 +162,7 @@ Game::Game() {
   }
   count_line = 0;   
   randNum = 0;
+  firstRandom();
   random();
 }
 

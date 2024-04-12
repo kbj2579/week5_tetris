@@ -21,21 +21,34 @@ private:
   Tetromino curT = Tetromino::I;
   Tetromino nextT = Tetromino::I;
   Tetromino holdT = Tetromino::I;
+  
   int randNum;
   int curX = BOARD_WIDTH/2 - 1;
   int curY = 0;
-  bool cur_floor = false;
+
   int dropTimer = DROP_DELAY;
 
+  bool leftWall = false;
+  bool rightWall = false;
+
+
+  // 보드판을 그린다
   void drawBoard();
 
-  void random();
-
+  // 게임이 실행될때 첫번째 테트로미노를 랜덤으로 생성
   void firstRandom();
 
+  // 두번째부터 테트로미노를 랜덤으로 생성
+  void random();
+
+  // 테트로미노를 아래로 이동시킨다.
   void downTetro();
 
+  // 키를 입력하여 테트로미노를 왼쪽,오른쪽으로 이동 또는 시계, 반시계 방향으로 회전시킨다
   void handleTetroInput();
+
+  // 오른쪽 또는 왼쪽 벽에 닿아있는지 확인한다
+  void hitWall();
 public:
   // 게임의 한 프레임을 처리한다.
   void update();

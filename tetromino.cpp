@@ -36,10 +36,7 @@
                 shape_[i][j] = false;
             }
         }
-        //xxxx
-        //oooo
-        //xxxx
-        //xxxx
+
         for (int i = 0; i < size * size; i++) { 
             if (i % size == 0) width++;
 
