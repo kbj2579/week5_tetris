@@ -88,16 +88,16 @@ void Game::downTetro() {
 }
 
 void Game::handleTetroInput() {
-  if(console::key(console::K_LEFT)){
+  if(console::key(console::K_Z)){
     curT.rotatedCW();
   }
-  if(console::key(console::K_RIGHT)){
+  if(console::key(console::K_X)){
     curT.rotatedCCW();
   }
-  if(console::key(console::K_Z)){
+  if(console::key(console::K_LEFT)){
     if(!leftWall) {curX--;}
   }
-  if(console::key(console::K_X)){
+  if(console::key(console::K_RIGHT)){
     if(!rightWall){curX++;}
   }
 }
