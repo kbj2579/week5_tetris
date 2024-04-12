@@ -9,23 +9,33 @@
 #define LINES 40
 
 #define DROP_DELAY 60
-
 class Game {
 private: 
   // 게임 판을 나타내는 배열
   // board[x][y]가 true 인 경우 x, y 위치에 고정된 블록이 존재하는 것을 의미한다
   bool board_[BOARD_WIDTH][BOARD_HEIGHT];
+  
 
   // 1줄을 꽉채워서 없앤 줄의 갯수
   int count_line;
-  Tetromino curT = Tetromino("I", 4, "XXXXOOOOXXXXXXXX");
-  Tetromino nextT = Tetromino("I", 4, "XXXXOOOOXXXXXXXX");
-  Tetromino holdT = Tetromino("I", 4, "XXXXOOOOXXXXXXXX");
+  Tetromino curT = Tetromino::I;
+  Tetromino nextT = Tetromino::I;
+  Tetromino holdT = Tetromino::I;
   int randNum;
+  int curX = BOARD_WIDTH/2 - 1;
+  int curY = 0;
+  bool cur_floor = false;
+  int dropTimer = DROP_DELAY;
+
+  void drawBoard();
 
   void random();
 
   void firstRandom();
+
+  void downTetro();
+
+  void handleTetroInput();
 public:
   // 게임의 한 프레임을 처리한다.
   void update();

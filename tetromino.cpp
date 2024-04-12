@@ -1,4 +1,5 @@
 #include "tetromino.h"
+#include "console/console.h"
 #include <iostream>
 #include <string>
 #define SHADOW_STRING "⛶"
@@ -7,7 +8,7 @@
 
 
 
-    // 사이즈와 shape 문자열을 통해 생성한다.
+    // 사이즈와 shape 문자열을 p/;통해 생성한다.
     // 문자열은 size * size 길이의 문자열이 주어진다.
 
     // 블록이 존재한다면 O를 통해 표시하고 아니라면 X를 통해 표시한다.
@@ -32,11 +33,14 @@
         width = -1;
         for(int i = 0; i < MAX_SIZE; i++){
             for(int j = 0; j < MAX_SIZE; j++){
-                shape_[i][j] = 'X';
+                shape_[i][j] = false;
             }
         }
-
-        for (int i = 0; i < size * size; i++) {
+        //xxxx
+        //oooo
+        //xxxx
+        //xxxx
+        for (int i = 0; i < size * size; i++) { 
             if (i % size == 0) width++;
 
             if (shape[i] == 'O') {
@@ -51,25 +55,6 @@
 
     // 시계 방향으로 회전한 모습의 테트로미노 객체를 반환한다.
     Tetromino Tetromino::rotatedCW() {
-        if (size_ == 3) {
-            temp = shape_[0][2];
-            temp2 = shape_[2][2];
-            shape_[0][2] = shape_[0][0];
-            shape_[2][2] = temp;
-            temp = shape_[2][0];
-            shape_[2][0] = temp2;
-            shape_[0][0] = temp;
-
-            //
-            temp = shape_[0][1];
-            temp2 = shape_[1][2];
-            shape_[0][1] = shape_[1][0];
-            shape_[1][2] = temp;
-            temp = shape_[2][1];
-            shape_[2][1] = temp2;
-            shape_[1][0] = temp;
-        }
-        else if (size_ == 4) {
             temp = shape_[0][1];
             temp2 = shape_[1][3];
             shape_[1][3] = temp;
@@ -107,33 +92,11 @@
             temp2 = shape_[2][1];
             shape_[2][1] = temp;
             shape_[1][1] = temp2;
-        }
-        return *this;
+        
+            return *this;
     }
     // 반시계 방향으로 회전한 모습의 테트로미노 객체를 반환한다.
     Tetromino Tetromino::rotatedCCW() {
-            //size가 2인경우 회전모습이 같음.
-
-            //size가 3인경우 반시계방향으로 회전
-            if (size_ == 3) {
-                temp = shape_[0][0];
-                temp2 = shape_[0][2];
-                shape_[0][2] = shape_[2][2];
-                shape_[0][0] = temp2;
-                temp2 = shape_[2][0];
-                shape_[2][0] = temp;
-                shape_[2][2] = temp2;
-
-                //
-                temp = shape_[0][1];
-                temp2 = shape_[1][2];
-                shape_[1][2] = shape_[2][1];
-                shape_[0][1] = temp2;
-                temp2 = shape_[1][0];
-                shape_[1][0] = temp;
-                shape_[2][1] = temp2;
-            }
-            else if (size_ == 4) { //size가 4인경우 반시계방향으로 회전
                 temp = shape_[0][1];
                 temp2 = shape_[1][3];
                 shape_[0][1] = temp2;
@@ -172,12 +135,11 @@
                 temp = shape_[2][2];
                 shape_[2][2] = temp2;
                 shape_[1][2] = temp;
-            }
-            return *this;
+            
+                return *this;
     }
 
     // 화면의 x, y 위치에 s 문자열로  테트로미노를 그린다
     void Tetromino::drawAt(std::string s, int x, int y) {
-        std::cout << SHADOW_STRING;
+        console::draw(x, y, s);
     }
-

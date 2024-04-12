@@ -10,13 +10,20 @@
 
 
 Tetromino Tetromino::I("I", 4, "XXXXOOOOXXXXXXXX");
-Tetromino Tetromino::O("O", 2, "OOOO");
-Tetromino Tetromino::T("T", 3, "XOXOOOXXX");
+Tetromino Tetromino::O("O", 2, "XXXXXOOXXOOXXXXX");
+Tetromino Tetromino::T("T", 4, "XOXXOOOXXXXXXXXX");
 Tetromino Tetromino::S("S", 3, "XOOOOXXXX");
 Tetromino Tetromino::Z("Z", 3, "OOXXOOXXX");
 Tetromino Tetromino::J("J", 3, "OXXOOOXXX");
 Tetromino Tetromino::L("L", 3, "XXOOOOXXX");
 
+
+// board 3개를 그린다.
+void Game::drawBoard(){
+  console::drawBox(0,0,10,20); // board 칸을 그린다
+  console::drawBox(12,0,16,5); // Next 칸을 그린다
+  console::drawBox(17,0,21,5); // Hold 칸을 그린다
+}
 void Game::random() {
   randNum = (int)rand() % 7 + 1;
   switch(randNum){
@@ -71,34 +78,61 @@ void Game::firstRandom() {
   }
 }
 
-
-  // 게임의 한 프레임을 처리한다.
-void Game::update() {
-  
-  if(console::key(console::K_X)) {
-    curT = curT.rotatedCW();
-  }
-  else if(console::key(console::K_Z)) {
-    curT = curT.rotatedCCW();
+void Game::downTetro() {
+  dropTimer--;
+  if(dropTimer == 0){
+    dropTimer = DROP_DELAY;
+    curY++;
   }
 }
+
+void Game::handleTetroInput() {
+  if(console::key(console::K_Z)){
+    curT.rotatedCW();
+  }
+  if(console::key(console::K_X)){
+    curT.rotatedCCW();
+  }
+  if(console::key(console::K_LEFT)){
+    curX--;
+  }
+  if(console::key(console::K_RIGHT)){
+    curX++;
+  }
+}
+  // 게임의 한 프레임을 처리한다.
+void Game::update() {
+  downTetro();
+  drawBoard();
+  downTetro();
+  handleTetroInput();
+}   
 // 게임 화면을 그린다.
 void Game::draw(){
-  console::log("print test");
-  console::drawBox(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
-  console::drawBox(28, 0, 31, 5);
+  if(cur_floor == true){
+    random();
+    nextT = curT;
+  }
+
+  for(int i = 0; i < 4; i++){
+    for(int j = 0; j < 4; j++){
+      if(curT.check(i, j)){
+        curT.drawAt(BLOCK_STRING, curX + i, curY + j);
+      }
+    }
+  }
 }
 
 // 게임 루프가 종료되어야 하는지 여부를 반환한다.
 bool Game::shouldExit(){
   // ESC 키를 누르면 게임종료
   if(console::key(console::K_ESC)){
-    return false;
+    return true;
   }
   else if(count_line == 40){
-    return false;
+    return true;
   }
-  return true;
+  return false;
 }
 
 Game::Game() {
@@ -109,5 +143,6 @@ Game::Game() {
   }
   count_line = 0;   
   randNum = 0;
+  random();
 }
 

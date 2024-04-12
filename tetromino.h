@@ -22,11 +22,9 @@ class Tetromino {
 
   // 테트로미노의 사이즈
   int size_;
-
-  int width; // 가로길이 변수
+  int width;
   bool temp = false; // 방향회전을 시킬때 값을 저장시킬 변수
   bool temp2 = false;
-  
 public:
   // 사이즈와 shape 문자열을 통해 생성한다.
   // 문자열은 size * size 길이의 문자열이 주어진다.

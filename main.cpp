@@ -4,7 +4,6 @@
 #include <ctime>
 #include <iostream>
 int main() {
-  std::cout << "dsfsd";
   srand((unsigned int)time(nullptr));
   console::init();
 
